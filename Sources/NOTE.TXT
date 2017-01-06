@@ -1,0 +1,43 @@
+1.WaitResponseOK(INT16U t)
+{
+	INT8U count = (INT8U)(t/50);
+
+不能写成INT8U count = (INT8U)t/50;
+
+2.通道号 ToDo Finished
+
+3.heart beat！！
+
+4.在调试的时候，如果不掉电直接刷写下次执行PowerOn模块可能不正常
+  需要掉电
+  
+  如果不是调试就没有问题
+  
+5.BusClock=16M, SCI Baudrate=111111, 与115200误差比较大 会造成连续接收0有丢失情况
+  改为BusClock=24M, SCI Baudrate=115384,与115200误差更接近 接收变得稳健 
+
+6.EEPROM 加上循环操作EEPROM，自定义用于掉电存储的sector的大小和sector的个数，加上ActiveFlag
+
+7.T15监测
+
+8.发送在线报文RCU-P
+
+9.GPRS 接收和心跳包处理
+
+10.sim卡的问题，那个IP的是动态分配的每一段时间变一下，后来换了固定IP的就不会断了
+    模块需要掉电。。
+    
+    
+11.GPS(SCI1) GSM(SCI2)调换一下更好
+
+12.SCI2发送的时候禁止SCI2和SCI1接收中断 进入SCI1和SCI2中断处理函数的时候先屏蔽自己的中断
+
+13.任务TaskGPRS改为TaskGPRSPrepare，且自我删除，连接状态检测放在TaskGPRSHeartbeat里
+
+14.任务TaskGPRSSend先不创建 在命令处理完成后创建
+
+15.向ECU发送请求后等待响应有超时判断
+
+16.天线需要匹配，电源也要匹配 系统需要是24V
+
+17.上下电改了，加了IOInit
